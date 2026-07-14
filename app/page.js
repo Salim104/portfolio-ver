@@ -5,6 +5,7 @@ import ClientWork from "../Components/ClientWork";
 import Contact from "../Components/Contact";
 import Background from "../Components/Background";
 import WhatsAppButton from "../Components/WhatsAppButton";
+import TikTokButton from "../Components/TikTokButton";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <ClientWork />
       <Contact />
       <WhatsAppButton />
+      <TikTokButton />
     </div>
   );
 }
