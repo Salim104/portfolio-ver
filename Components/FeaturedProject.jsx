@@ -25,6 +25,7 @@ const FeaturedProject = () => {
         <motion.div
           whileInView={{ opacity: 1, x: 0 }}
           initial={{ opacity: 0, x: -100 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1 }}
           className='relative h-56 sm:h-72 lg:h-full min-h-[14rem]'
         >
@@ -41,6 +42,7 @@ const FeaturedProject = () => {
         <motion.div
           whileInView={{ opacity: 1, x: 0 }}
           initial={{ opacity: 0, x: 100 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1 }}
           className='p-6 sm:p-8 md:p-10 flex flex-col justify-center'
         >

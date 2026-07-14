@@ -1,9 +1,24 @@
 "use client";
 
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useEffect, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 
 const Background = () => {
+    const reduceMotion = useReducedMotion();
+    const [isDesktop, setIsDesktop] = useState(false);
+
+    // Only drift the blurred glows on larger screens; animating a 130px blur
+    // forces a full re-raster every frame and janks on mobile GPUs.
+    useEffect(() => {
+        const mq = window.matchMedia('(min-width: 768px)');
+        const update = () => setIsDesktop(mq.matches);
+        update();
+        mq.addEventListener('change', update);
+        return () => mq.removeEventListener('change', update);
+    }, []);
+
+    const animateGlows = isDesktop && !reduceMotion;
+
     return (
         <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 bg-[#05070F]">
             {/* Deep base gradient — midnight navy fading to near-black */}
@@ -17,22 +32,25 @@ const Background = () => {
 
             {/* Accent glow 1 — cyan */}
             <motion.div
-                animate={{ scale: [1, 1.2, 1], x: [0, 100, 0], y: [0, 50, 0] }}
+                animate={animateGlows ? { scale: [1, 1.2, 1], x: [0, 100, 0], y: [0, 50, 0] } : undefined}
                 transition={{ duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+                style={animateGlows ? { willChange: 'transform' } : undefined}
                 className="absolute top-[-12%] left-[-10%] w-[520px] h-[520px] rounded-full bg-[#2BC1EA] opacity-[0.10] blur-[130px]"
             />
 
             {/* Accent glow 2 — deep indigo */}
             <motion.div
-                animate={{ scale: [1, 1.5, 1], x: [0, -100, 0], y: [0, 100, 0] }}
+                animate={animateGlows ? { scale: [1, 1.5, 1], x: [0, -100, 0], y: [0, 100, 0] } : undefined}
                 transition={{ duration: 25, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+                style={animateGlows ? { willChange: 'transform' } : undefined}
                 className="absolute top-[40%] right-[-12%] w-[420px] h-[420px] rounded-full bg-[#1E3A8A] opacity-[0.14] blur-[130px]"
             />
 
             {/* Accent glow 3 — teal */}
             <motion.div
-                animate={{ scale: [1, 1.3, 1], x: [0, 100, 0], y: [0, -50, 0] }}
+                animate={animateGlows ? { scale: [1, 1.3, 1], x: [0, 100, 0], y: [0, -50, 0] } : undefined}
                 transition={{ duration: 30, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+                style={animateGlows ? { willChange: 'transform' } : undefined}
                 className="absolute bottom-[-12%] left-[18%] w-[620px] h-[620px] rounded-full bg-[#06b6d4] opacity-[0.08] blur-[150px]"
             />
 

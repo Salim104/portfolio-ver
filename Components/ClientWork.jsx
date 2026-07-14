@@ -55,8 +55,9 @@ const ClientWork = () => {
             key={project.id}
             whileInView={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 60 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className='bg-[#002E52] rounded-lg shadow-lg overflow-hidden w-full transform transition-all duration-300 hover:scale-105 hover:shadow-2xl'
+            className='bg-[#002E52] rounded-lg shadow-lg overflow-hidden w-full transform transition-[transform,box-shadow] duration-300 hover:scale-105 hover:shadow-2xl'
           >
             {/* Project Image */}
             <div className='relative h-48 bg-gray-200 overflow-hidden'>
